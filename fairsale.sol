@@ -48,8 +48,10 @@ contract Fairsale {
         if (funded) throw;
         funded = true;
         if (raised < target) {
+            if (raised > this.balance) raised = this.balance;
             if (!owner.call.value(raised)()) throw;
         } else {
+            if (target > this.balance) target = this.balance;
             if (!owner.call.value(target)()) throw;
         }
     }
